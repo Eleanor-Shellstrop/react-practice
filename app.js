@@ -1,12 +1,12 @@
-//  Add unique key, should not be reused
-//  This is a static list, so we add them here
-//  In API or other source, will likely have a unique ID
-//  We can also auto-generate
+//  Since props are static, we use states to make the page dynamic
+//  In React, state is the data you want to track in your app
+//  It's the only data that changes over time
 
-//  Not all items need key props
-//  Pass a key prop anytime you are iterating over an array of items
-//  that will be rearranged, added or delted in your UI
-//  A key will help identify with was changed, added, deleted from DOM
+//  State itself is a regular JS object with properties
+//  that deinfe the pieces of data that change
+
+//  Only available in class components, not function components
+//  Data through state is distributed through props
 
 const players = [
     {
@@ -40,31 +40,50 @@ const  Header = (props) => {
     ); 
 }
 
-//  Nest components: 
-//  When a component countains another component, it's called composition
+//  Counter is maintaining its own score state now, delete from Counter component
 const Player = (props) => {
     return (
         <div className="player">
             <span className="player-name">
                 { props.name }
             </span>
-            <Counter score={ props.score } />            
+            <Counter />             
         </div>
     );
 }
 
-const Counter = (props) => {
-    return (
+//  Change Counter from function to class, add "this" and constructor, 
+//  change this.props.score to this.state.score
+/**
+ * Could use constructor below or "state = {}"
+ * While not supported by all browsers (at time of tutorial?)
+ * 
+ *  constructor() {
+ *       super()
+ *       this.state = {
+ *           score: 0
+ *       };
+ *   }
+ * 
+ */
+
+class Counter extends React.Component {
+    
+    state = {
+        score: 0
+    }
+    render() {
+     return (
         <div className="counter">
             <button className="counter-action decrement"> - </button>
-            <span className="counter-score">
-                { props.score }
-            </span>
+            <span className="counter-score">{ this.state.score }</span>
             <button className="counter-action increment"> + </button>
         </div>
-    );
+        );   
+    }
 }
 
+//  Delete score from here, too
 const App = (props) => {
     return(
         <div className="scoreboard">
@@ -77,7 +96,6 @@ const App = (props) => {
             // Implicit return here
                 <Player 
                     name={ player.name }
-                    score={ player.score }
                     key={ player.id.toString() } 
                 />
             )}
