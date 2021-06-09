@@ -1,19 +1,33 @@
+//  Add unique key, should not be reused
+//  This is a static list, so we add them here
+//  In API or other source, will likely have a unique ID
+//  We can also auto-generate
+
+//  Not all items need key props
+//  Pass a key prop anytime you are iterating over an array of items
+//  that will be rearranged, added or delted in your UI
+//  A key will help identify with was changed, added, deleted from DOM
+
 const players = [
     {
         name: "Guil",
-        score: 50
+        score: 50, 
+        id: 1
       },
       {
         name: "Treasure",
-        score: 85
+        score: 85, 
+        id: 2
       },
       {
         name: "Ashley",
-        score: 95
+        score: 95,
+        id: 3
       },
       {
         name: "James",
-        score: 80
+        score: 80, 
+        id: 4
       }
 ]
 
@@ -63,7 +77,8 @@ const App = (props) => {
             // Implicit return here
                 <Player 
                     name={ player.name }
-                    score={ player.score } 
+                    score={ player.score }
+                    key={ player.id.toString() } 
                 />
             )}
             
