@@ -1,17 +1,14 @@
-// Starting new phase: Making a scoreboard app
+//  Often see components defined as arrow functions.
+//  If writing a simple function that just returns JSX,
+//  you can use an implicit return.
+//  Parenthesis optional
+const  Header = () => (
+    <header>
+        <h1>Scoreboard</h1>
+        <span className="stats">Players: 1</span>
+    </header>
+);
 
-// React UI is a composition of functions
-// React components are required to start with an upper case letter
-function Header() {
-    return (
-        <header>
-            <h1>Scoreboard</h1>
-            <span className="stats">Players: 1</span>
-        </header>
-    );
-}
-
-// Add self closing tag if no children present
 ReactDOM.render(
     <Header />,
     document.getElementById('root')
