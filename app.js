@@ -41,21 +41,34 @@ const Player = (props) => {
     );
 }
 
-// onClick is specific to React, MUST be named this
-// Also not adding parenthesis when calling incrementScore so it only loads on a click
+// Cannot add increment equations in React like JS 
+// (ex: "this.score += 1") Use "setState"
+/**
+ * Also, "this" loses binding when extended from class
+ * Use the bind() method to fix 
+ * Or use arrow function  onClick={() => this.incrementScore()}
+ * Arrow functions use a LEXICAL THIS BINDING which automatically binds
+ * them to the scope in which they are defined.
+ * 
+ * Can also write method as arrow function (bound to component instance)
+ * incrementScore = () => {}
+ * and call onClick={this.incrementScore}
+ */
 class Counter extends React.Component {
     state = {
         score: 0
     };
     incrementScore() {
-        console.log('Hi from inside the score!');
-    };
+        this.setState({
+            score: this.state.score + 1
+        });
+    }
     render() {
      return (
         <div className="counter">
             <button className="counter-action decrement"> - </button>
             <span className="counter-score">{ this.state.score }</span>
-            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
+            <button className="counter-action increment" onClick={this.incrementScore.bind(this)}> + </button>
         </div>
         );   
     }
@@ -70,7 +83,6 @@ const App = (props) => {
 
             {/* Players list*/}
             {props.initialPlayers.map( player =>
-            // Implicit return here
                 <Player 
                     name={ player.name }
                     key={ player.id.toString() } 
