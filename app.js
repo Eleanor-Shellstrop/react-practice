@@ -41,33 +41,20 @@ const Player = (props) => {
     );
 }
 
-
-/**
- * Sometimes updates to the DOM don't happen immediately
- * when you call this.setState
- * Multiples inside an event handler will be bundles for performance
- * reasons, so you shouldn't rely on this.state to calculate
- * the next state.
- * setState also accepts a callback function
- * to be more reliable
- */
+//Change prevState to implicit return
 class Counter extends React.Component {
     state = {
         score: 0
     };
     incrementScore = () => {
-        this.setState( prevState => {
-            return {
+        this.setState( prevState => ({
               score: prevState.score + 1  
-            };
-        });
+        }));
     }
     decrementScore = () => {
-        this.setState( prevState => {
-            return {
+        this.setState( prevState => ({
               score: prevState.score - 1  
-            };
-        });
+        }));
     }
     render() {
      return (
