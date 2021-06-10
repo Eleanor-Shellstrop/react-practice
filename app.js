@@ -1,13 +1,3 @@
-//  Since props are static, we use states to make the page dynamic
-//  In React, state is the data you want to track in your app
-//  It's the only data that changes over time
-
-//  State itself is a regular JS object with properties
-//  that deinfe the pieces of data that change
-
-//  Only available in class components, not function components
-//  Data through state is distributed through props
-
 const players = [
     {
         name: "Guil",
@@ -40,7 +30,6 @@ const  Header = (props) => {
     ); 
 }
 
-//  Counter is maintaining its own score state now, delete from Counter component
 const Player = (props) => {
     return (
         <div className="player">
@@ -52,38 +41,26 @@ const Player = (props) => {
     );
 }
 
-//  Change Counter from function to class, add "this" and constructor, 
-//  change this.props.score to this.state.score
-/**
- * Could use constructor below or "state = {}"
- * While not supported by all browsers (at time of tutorial?)
- * 
- *  constructor() {
- *       super()
- *       this.state = {
- *           score: 0
- *       };
- *   }
- * 
- */
-
+// onClick is specific to React, MUST be named this
+// Also not adding parenthesis when calling incrementScore so it only loads on a click
 class Counter extends React.Component {
-    
     state = {
         score: 0
-    }
+    };
+    incrementScore() {
+        console.log('Hi from inside the score!');
+    };
     render() {
      return (
         <div className="counter">
             <button className="counter-action decrement"> - </button>
             <span className="counter-score">{ this.state.score }</span>
-            <button className="counter-action increment"> + </button>
+            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
         </div>
         );   
     }
 }
 
-//  Delete score from here, too
 const App = (props) => {
     return(
         <div className="scoreboard">
@@ -104,8 +81,6 @@ const App = (props) => {
     );
 }
 
-//  Usually renders your top level element into the DOM,
-//  So change to "App"
 ReactDOM.render(
     <App initialPlayers={ players }/>,
     document.getElementById('root')
