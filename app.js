@@ -41,34 +41,26 @@ const Player = (props) => {
     );
 }
 
-// Cannot add increment equations in React like JS 
-// (ex: "this.score += 1") Use "setState"
-/**
- * Also, "this" loses binding when extended from class
- * Use the bind() method to fix 
- * Or use arrow function  onClick={() => this.incrementScore()}
- * Arrow functions use a LEXICAL THIS BINDING which automatically binds
- * them to the scope in which they are defined.
- * 
- * Can also write method as arrow function (bound to component instance)
- * incrementScore = () => {}
- * and call onClick={this.incrementScore}
- */
 class Counter extends React.Component {
     state = {
         score: 0
     };
-    incrementScore() {
+    incrementScore = () => {
         this.setState({
             score: this.state.score + 1
+        });
+    }
+    decrementScore = () => {
+        this.setState({
+            score: this.state.score - 1
         });
     }
     render() {
      return (
         <div className="counter">
-            <button className="counter-action decrement"> - </button>
+            <button className="counter-action decrement" onClick={this.decrementScore}> - </button>
             <span className="counter-score">{ this.state.score }</span>
-            <button className="counter-action increment" onClick={this.incrementScore.bind(this)}> + </button>
+            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
         </div>
         );   
     }
